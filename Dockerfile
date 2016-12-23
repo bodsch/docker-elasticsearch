@@ -1,12 +1,12 @@
 
-FROM bodsch/docker-oracle-java-8:latest
+FROM bodsch/docker-openjdk-8:1612-01
 
 MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
 
-LABEL version="0.0.0"
+LABEL version="0.0.2"
 
 ENV \
-  ES_VERSION=5.0.0
+  ES_VERSION=5.1.1
 
 EXPOSE 9200 9300
 
