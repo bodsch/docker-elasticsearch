@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 HOSTNAME=$(hostname -s)
 
 WORK_DIR=/srv/elasticsearch
@@ -9,9 +11,11 @@ CLUSTER_NAME=${CLUSTER_NAME:-"DivineOrder"}
 
 # ---------------------------------------------------------
 
-config="/opt/elasticsearch/config/elasticsearch.yml"
+CONFIG="/opt/elasticsearch/config/elasticsearch.yml"
 
-  cat << EOF > ${config}
+create_config() {
+
+  cat << EOF > ${CONFIG}
 
 path:
   data: ${DATA_DIR}
@@ -34,11 +38,15 @@ transport.tcp.port: 9300-9400
 http.port: 9200-9300
 
 EOF
+}
 
+switch_to_sh() {
   sed -i \
     -e "s|^#!/bin/bash|#!/bin/sh|g" \
     /opt/elasticsearch/bin/elasticsearch
+}
 
+prepare() {
   mkdir -p ${DATA_DIR}
   chown elastic: ${DATA_DIR}
   chmod ug+rwx ${DATA_DIR}
@@ -46,9 +54,15 @@ EOF
   mkdir -p /var/log/elasticsearch
   chown elastic: /var/log/elasticsearch
   chmod ug+rwx /var/log/elasticsearch
+}
 
+run() {
 
-su --command /opt/elasticsearch/bin/elasticsearch elastic
+  create_config
+  switch_to_sh
+
+  su --command /opt/elasticsearch/bin/elasticsearch elastic
+}
 
 # /opt/elasticsearch/bin/elasticsearch
 

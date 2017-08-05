@@ -13,7 +13,6 @@ ENV \
   CATALINA_HOME=/opt/tomcat \
   OPENJDK_VERSION="8.131.11-r2" \
   ES_VERSION="5.5.0" \
-  CLUSTER_NAME="graylog2" \
   JAVA_HOME=/usr/lib/jvm/default-jvm \
   PATH=${PATH}:/opt/jdk/bin:${CATALINA_HOME}/bin \
   LANG=C.UTF-8
