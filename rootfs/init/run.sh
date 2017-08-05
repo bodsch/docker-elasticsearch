@@ -64,6 +64,8 @@ run() {
   su --command /opt/elasticsearch/bin/elasticsearch elastic
 }
 
+run
+
 # /opt/elasticsearch/bin/elasticsearch
 
 # EOF
