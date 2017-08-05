@@ -1,0 +1,12 @@
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker build --tag bodsch/docker-elasticsearch .
+  - docker run --detach --name elasticsearch bodsch/docker-elasticsearch
+
+script:
+  - docker ps | grep -q elasticsearch
+
