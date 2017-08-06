@@ -58,14 +58,18 @@ prepare() {
 
 run() {
 
+  prepare
   create_config
   switch_to_sh
+
+  if ( [ -n "${MAX_MAP_COUNT}" ] && [ -f /proc/sys/vm/max_map_count ] )
+  then
+    sysctl -q -w vm.max_map_count=${MAX_MAP_COUNT}
+  fi
 
   su --command /opt/elasticsearch/bin/elasticsearch elastic
 }
 
 run
-
-# /opt/elasticsearch/bin/elasticsearch
 
 # EOF

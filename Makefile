@@ -35,7 +35,6 @@ shell:
 		--name $(NAME)-$(INSTANCE) \
 		--interactive \
 		--tty \
-		--entrypoint '' \
 		$(PORTS) \
 		$(VOLUMES) \
 		$(ENV) \
@@ -46,11 +45,11 @@ run:
 	docker run \
 		--rm \
 		--name $(NAME)-$(INSTANCE) \
+		--ulimit nofile=262144:262144  \
 		$(PORTS) \
 		$(VOLUMES) \
 		$(ENV) \
-		$(NS)/$(REPO):$(VERSION) \
-		-l 0.0.0.0 -m 16 -u elasticsearch
+		$(NS)/$(REPO):$(VERSION)
 
 exec:
 	docker exec \

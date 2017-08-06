@@ -36,6 +36,7 @@ RUN \
   echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
   sed -i 's,#networkaddress.cache.ttl=-1,networkaddress.cache.ttl=30,' ${JAVA_HOME}/jre/lib/security/java.security && \
   mkdir /opt && \
+  mkdir -p /var/log/elasticsearch && \
   useradd -d /opt/elasticsearch --no-create-home --shell /bin/sh elastic || true && \
   curl \
     --silent \
@@ -46,6 +47,7 @@ RUN \
       | gunzip \
       | tar x -C /opt/ && \
   chown -R elastic: /opt/elasticsearch-${ES_VERSION} && \
+  chown -R elastic: /var/log/elasticsearch && \
   ln -s /opt/elasticsearch-${ES_VERSION} /opt/elasticsearch && \
   rm -v /opt/elasticsearch/bin/*.exe && \
   rm -v /opt/elasticsearch/bin/*.bat && \
