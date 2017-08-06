@@ -8,7 +8,7 @@ before_install:
   - docker pull alpine:3.6
 
 install:
-  - docker build --tag bodsch/docker-elasticsearch .
+  - travis_retry docker build --tag bodsch/docker-elasticsearch .
   - docker run --detach --name elasticsearch bodsch/docker-elasticsearch
 
 script:
